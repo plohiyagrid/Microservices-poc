@@ -1,12 +1,9 @@
 package plohiya.inventory_service;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import plohiya.inventory_service.model.Inventory;
-import plohiya.inventory_service.repository.InventoryRepository;
+
 
 @SpringBootApplication
 public class InventoryServiceApplication {
