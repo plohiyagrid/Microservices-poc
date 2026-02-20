@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import plohiya.inventory_service.model.Inventory;
 import plohiya.inventory_service.repository.InventoryRepository;
 
-@Component
+// @Component
 @RequiredArgsConstructor
 public class DataLoader implements CommandLineRunner {
     private final InventoryRepository inventoryRepository;

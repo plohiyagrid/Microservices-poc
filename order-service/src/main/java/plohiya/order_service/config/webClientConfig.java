@@ -20,6 +20,7 @@ package plohiya.order_service.config;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
@@ -33,7 +34,8 @@ import java.util.concurrent.TimeUnit;
 public class webClientConfig {
 
     @Bean
-    public WebClient webClient(){
+    @LoadBalanced
+    public WebClient.Builder webClientBuilder(){
         HttpClient httpClient = HttpClient.create()
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
                 .responseTimeout(Duration.ofSeconds(5))
@@ -42,7 +44,6 @@ public class webClientConfig {
                             .addHandlerLast(new WriteTimeoutHandler(5, TimeUnit.SECONDS)));
 
         return WebClient.builder()
-                .clientConnector(new ReactorClientHttpConnector(httpClient))
-                .build();
+                .clientConnector(new ReactorClientHttpConnector(httpClient));
     }
 }
