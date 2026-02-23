@@ -21,5 +21,4 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
 
     void deleteBySkuCode(String skuCode);
 
-    List<Inventory> findAllBySkuCode(String skuCode);
 }

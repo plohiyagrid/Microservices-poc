@@ -16,6 +16,7 @@ import plohiya.inventory_service.repository.InventoryRepository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,7 +27,7 @@ public class InventoryService {
     private final InventoryRepository inventoryRepository;
     private final KafkaTemplate<String, InventoryUpdatedEvent> kafkaTemplate;
 
-        @Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     @SneakyThrows
     public List<InventoryResponse> isInStock(List<String> skuCodes) {
         log.info("Checking Inventory for SKU codes: {}", skuCodes);
@@ -131,13 +132,11 @@ public class InventoryService {
             throw new IllegalArgumentException("SKU code cannot be null or empty");
         }
         
-        List<Inventory> inventories = inventoryRepository.findAllBySkuCode(skuCode);
+        Inventory inventory = inventoryRepository.findBySkuCode(skuCode)
+                .orElseThrow(() -> new InventoryNotFoundException(
+                        "Inventory with SKU code " + skuCode + " not found"));
         
-        if (inventories.isEmpty()) {
-            throw new InventoryNotFoundException("Inventory with SKU code " + skuCode + " not found");
-        }
-        
-        log.info("Deleting {} inventory record(s) with SKU code: {}", inventories.size(), skuCode);
+        log.info("Deleting {} inventory record with SKU code: {}", skuCode , inventory.getQuantity());
         inventoryRepository.deleteBySkuCode(skuCode);
         log.info("Successfully deleted inventory with SKU code: {}", skuCode);
     }
