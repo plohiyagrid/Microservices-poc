@@ -47,6 +47,13 @@ public class InventoryController {
         return inventoryService.addInventory(inventoryRequest);
     }
 
+    @DeleteMapping("/sku/{skuCode}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteInventoryBySkuCode(@PathVariable String skuCode) {
+        log.info("Received request to delete inventory by SKU code: {}", skuCode);
+        inventoryService.deleteInventoryBySkuCode(skuCode);
+    }
+
     @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void clearInventory() {
