@@ -26,6 +26,20 @@ public class InventoryController {
         return inventoryService.isInStock(skuCode);
     }
 
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public InventoryResponse getInventoryById(@PathVariable Long id) {
+        log.info("Received request to get inventory by id: {}", id);
+        return inventoryService.getInventoryById(id);
+    }
+
+    @GetMapping("/sku/{skuCode}")
+    @ResponseStatus(HttpStatus.OK)
+    public InventoryResponse getInventoryBySkuCode(@PathVariable String skuCode) {
+        log.info("Received request to get inventory by SKU code: {}", skuCode);
+        return inventoryService.getInventoryBySkuCode(skuCode);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public InventoryResponse addInventory(@RequestBody InventoryRequest inventoryRequest) {

@@ -28,4 +28,10 @@ public class OrderController {
     public List<Order> getAllOrders(){
         return orderService.getAllOrders();
     }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Order getOrderById(@PathVariable Long id){
+        return orderService.getOrderById(id);
+    }
 }
