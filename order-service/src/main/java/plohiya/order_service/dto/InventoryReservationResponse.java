@@ -1,16 +1,14 @@
 package plohiya.order_service.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class InventoryResponse {
-    private String skuCode;
-    private Boolean inStock;
-    private Integer quantity;
+public class InventoryReservationResponse {
+    private Map<String, Integer> updatedQuantities;
 }

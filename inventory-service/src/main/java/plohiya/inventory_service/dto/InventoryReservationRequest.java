@@ -1,16 +1,14 @@
 package plohiya.inventory_service.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class InventoryResponse {
-    private String skuCode;
-    private Boolean inStock;
-    private Integer quantity;
+public class InventoryReservationRequest {
+    private Map<String, Integer> skuQuantityMap; // SKU -> quantity to reserve/reduce
 }

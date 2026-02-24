@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import plohiya.inventory_service.dto.InventoryRequest;
+import plohiya.inventory_service.dto.InventoryReservationRequest;
+import plohiya.inventory_service.dto.InventoryReservationResponse;
 import plohiya.inventory_service.dto.InventoryResponse;
 import plohiya.inventory_service.service.InventoryService;
 
@@ -45,6 +47,13 @@ public class InventoryController {
     public InventoryResponse addInventory(@RequestBody InventoryRequest inventoryRequest) {
         log.info("Received request to add inventory: {}", inventoryRequest);
         return inventoryService.addInventory(inventoryRequest);
+    }
+
+    @PostMapping("/reserve")
+    @ResponseStatus(HttpStatus.OK)
+    public InventoryReservationResponse reserveInventory(@RequestBody InventoryReservationRequest request) {
+        log.info("Received inventory reservation request: {}", request);
+        return inventoryService.reserveInventory(request.getSkuQuantityMap());
     }
 
     @DeleteMapping("/sku/{skuCode}")

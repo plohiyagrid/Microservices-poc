@@ -5,12 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Map;
+
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class InventoryResponse {
-    private String skuCode;
-    private Boolean inStock;
-    private Integer quantity;
+public class InventoryReservationResponse {
+    private Map<String, Integer> updatedQuantities; // SKU -> new quantity after reservation
 }
