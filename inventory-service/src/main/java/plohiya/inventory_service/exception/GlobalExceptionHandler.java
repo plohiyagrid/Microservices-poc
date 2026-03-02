@@ -30,6 +30,18 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
+    @ExceptionHandler(ProductOutOfStockException.class)
+    public ResponseEntity<ErrorResponse> handleProductOutOfStockException(ProductOutOfStockException ex) {
+        log.error("Product out of stock: {}", ex.getMessage());
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .message(ex.getMessage())
+                .error("PRODUCT_OUT_OF_STOCK")
+                .status(HttpStatus.BAD_REQUEST.value())
+                .timestamp(LocalDateTime.now())
+                .build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
     @ExceptionHandler(InvalidInventoryRequestException.class)
     public ResponseEntity<ErrorResponse> handleInvalidInventoryRequestException(InvalidInventoryRequestException ex) {
         log.error("Invalid inventory request: {}", ex.getMessage());

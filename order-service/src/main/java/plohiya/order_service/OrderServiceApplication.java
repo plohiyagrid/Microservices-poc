@@ -19,8 +19,7 @@ public class OrderServiceApplication {
 					.directory(System.getProperty("user.dir"))
 					.ignoreIfMissing()
 					.load();
-			
-			// Set database properties from .env file
+
 			String dbUrl = dotenv.get("DB_URL");
 			String dbUsername = dotenv.get("DB_USERNAME");
 			String dbPassword = dotenv.get("DB_PASSWORD");
