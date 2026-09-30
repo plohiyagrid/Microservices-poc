@@ -2,6 +2,7 @@ package plohiya.order_service.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,7 +71,7 @@ public class OrderService {
                     .uri("http://inventory-service/api/inventory/reserve")
                     .bodyValue(new InventoryReservationRequest(skuQuantityMap))
                     .retrieve()
-                    .onStatus(status -> status.is4xxClientError(), clientResponse -> {
+                    .onStatus(HttpStatusCode::is4xxClientError, clientResponse -> {
                         return clientResponse.bodyToMono(String.class)
                                 .flatMap(body -> {
                                     log.error("Inventory service returned 4xx error: {}", body);
